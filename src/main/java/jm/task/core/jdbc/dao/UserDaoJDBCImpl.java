@@ -3,7 +3,6 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -40,8 +39,6 @@ public class UserDaoJDBCImpl implements UserDao {
     public void saveUser(String name, String lastName, byte age) {
 
         try(Statement stat = Util.getMySQLConnection().createStatement()){
-
-            String sql = " INSERT INTO users ( name , lastname , age) VALUES ( " + " \\'" + name + " \\' " + "," + " \\'" + lastName +"\\' " +","+ " \\'" + age + "\\' "+ "\\)";
             stat.execute("INSERT INTO users ( name , lastname , age) VALUES ("+"'"+name+"'"+ "," + "'"+ lastName +"'"+","+"'"+ age+"'"+")") ;
             log.log(Level.INFO,"User с именем — " + name + " добавлен в базу данных\n" ,new Object[]{name});
         } catch (SQLException | ClassNotFoundException e) {
